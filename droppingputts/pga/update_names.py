@@ -1,9 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-from pga.models import Player
-import django
+from pga.models import Player, Tournament, Score
 import datetime
+import django
+django.setup()
 
 
 def strip_nonalphanum_re(word):
@@ -40,4 +41,14 @@ for row in ldrbrd.find_all('tr', class_=re.compile(r'playerRow')):
         break
     player, created = Player.objects.get_or_create(
         name=get_name(col[3].find('a', class_='pName').string)
+    )
+    tournament = Tournament.objects.get(name="John Deere Classic")
+    score, created = Score.objects.get_or_create(
+        player=player,
+        tournament=tournament,
+        round_one=col[7].string,
+        round_two=col[8].string,
+        round_three=col[9].string,
+        round_four=col[10].string,
+        overall=col[4].string
     )

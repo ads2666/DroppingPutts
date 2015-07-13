@@ -19,11 +19,11 @@ class Tournament(models.Model):
 class Score(models.Model):
     player = models.ForeignKey(Player)
     tournament = models.ForeignKey(Tournament)
-    round_one = models.CharField(max_length=10)
-    round_two = models.CharField(max_length=10)
-    round_three = models.CharField(max_length=10)
-    round_four = models.CharField(max_length=10)
-    overall = models.CharField(max_length=10)
+    round_one = models.CharField(max_length=10, null=True)
+    round_two = models.CharField(max_length=10, null=True)
+    round_three = models.CharField(max_length=10, null=True)
+    round_four = models.CharField(max_length=10, null=True)
+    overall = models.CharField(max_length=10, null=True)
 
     def __str__(self):
-        return self.player + self.overall
+        return self.player.name + self.overall
