@@ -45,10 +45,11 @@ for row in ldrbrd.find_all('tr', class_=re.compile(r'playerRow')):
     tournament = Tournament.objects.get(name="John Deere Classic")
     score, created = Score.objects.get_or_create(
         player=player,
-        tournament=tournament,
-        round_one=col[7].string,
-        round_two=col[8].string,
-        round_three=col[9].string,
-        round_four=col[10].string,
-        overall=col[4].string
-    )
+        tournament=tournament)
+    score.round_one=col[7].string
+    score.round_two=col[8].string
+    score.round_three=col[9].string
+    score.round_four=col[10].string
+    score.overall=col[4].string
+    score.save()
+    

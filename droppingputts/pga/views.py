@@ -1,11 +1,13 @@
+from django.shortcuts import render
 from django.http import HttpResponse
+
 from .models import Tournament
 
 
 def index(request):
     recent_tourneys = Tournament.objects.order_by('-pub_date')[:5]
-    output = ', '.join([p.name for p in recent_tourneys])
-    return HttpResponse(output)
+    context = {'recent_tourneys': recent_tourneys}
+    return render(request, 'pga/index.html', context)
 
 
 def detail(request, tournament_id):
