@@ -1,0 +1,15 @@
+<h1>{{ tournament.name }}</h1>
+<ul>
+{% for player in tournament.score_set.all %}
+    <li>
+        {{ player.position }}
+        {{ player.player.name }}
+        {{ player.overall }}
+        {{ player.round_one }}
+        {{ player.round_two }}
+        {{ player.round_three }}
+        {{ player.round_four }}
+        {{ player.total_strokes }}
+    </li>
+{% endfor %}
+</ul>

@@ -22,11 +22,6 @@ BASE_URL = "http://www.golfchannel.com/tours/pga-tour/"
 r = requests.get(BASE_URL)
 r = r.text
 
-# filename = 'golf_channel.html'
-# r = ''
-# f = open(filename, 'rU')
-# for line in f:
-#   r += line
 
 soup = BeautifulSoup(r)
 
@@ -42,14 +37,15 @@ for row in ldrbrd.find_all('tr', class_=re.compile(r'playerRow')):
     player, created = Player.objects.get_or_create(
         name=get_name(col[3].find('a', class_='pName').string)
     )
-    tournament = Tournament.objects.get(name="John Deere Classic")
+    tournament = Tournament.objects.get(name="British Open")
     score, created = Score.objects.get_or_create(
         player=player,
         tournament=tournament)
-    score.round_one=col[7].string
-    score.round_two=col[8].string
-    score.round_three=col[9].string
-    score.round_four=col[10].string
-    score.overall=col[4].string
+    score.round_one = col[7].string
+    score.round_two = col[8].string
+    score.round_three = col[9].string
+    score.round_four = col[10].string
+    score.overall = col[4].string
+    score.total_strokes = col[11].string
+    score.position = col[1].string
     score.save()
-    
