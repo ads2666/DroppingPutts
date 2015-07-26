@@ -25,6 +25,11 @@ r = r.text
 
 soup = BeautifulSoup(r)
 
+current_tournament = soup.find('h1').string.strip()
+tournament = Tournament.objects.get_or_create(
+    name=current_tournament
+)
+
 ldrbrd = soup.find('table', 'gc_leaderboard tablesorter')
 
 
@@ -37,7 +42,6 @@ for row in ldrbrd.find_all('tr', class_=re.compile(r'playerRow')):
     player, created = Player.objects.get_or_create(
         name=get_name(col[3].find('a', class_='pName').string)
     )
-    tournament = Tournament.objects.get(name="British Open")
     score, created = Score.objects.get_or_create(
         player=player,
         tournament=tournament)
