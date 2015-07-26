@@ -26,7 +26,7 @@ r = r.text
 soup = BeautifulSoup(r)
 
 current_tournament = soup.find('h1').string.strip()
-tournament = Tournament.objects.get_or_create(
+pga_tournament, created = Tournament.objects.get_or_create(
     name=current_tournament
 )
 
@@ -44,7 +44,7 @@ for row in ldrbrd.find_all('tr', class_=re.compile(r'playerRow')):
     )
     score, created = Score.objects.get_or_create(
         player=player,
-        tournament=tournament)
+        tournament=pga_tournament)
     score.round_one = col[7].string
     score.round_two = col[8].string
     score.round_three = col[9].string

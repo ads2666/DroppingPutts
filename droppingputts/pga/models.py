@@ -11,7 +11,7 @@ class Player(models.Model):
 
 class Tournament(models.Model):
     name = models.CharField(max_length=100)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('date published', null=True)
 
     def __str__(self):
         return self.name
@@ -25,7 +25,7 @@ class Score(models.Model):
     round_three = models.CharField(max_length=10, null=True)
     round_four = models.CharField(max_length=10, null=True)
     overall = models.CharField(max_length=10, null=True)
-    total_strokes = models.IntegerField()
+    total_strokes = models.IntegerField(null=True)
     position = models.CharField(max_length=10)
 
     class Meta:
