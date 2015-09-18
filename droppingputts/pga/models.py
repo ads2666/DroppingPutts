@@ -28,9 +28,6 @@ class Score(models.Model):
     total_strokes = models.IntegerField(null=True)
     position = models.CharField(max_length=10)
 
-    class Meta:
-        ordering = ['position']
-
     def __str__(self):
         return self.player.name + self.overall
 
